@@ -33,6 +33,11 @@ class InventoryManagementSystem {
     }
 
     public void addProduct(Product product) {
+        if (product == null) {
+            System.out.println("Invalid product.");
+            return;
+        }
+
         for (Product p : products) {
             if (p.getName().equals(product.getName())) {
                 System.out.println("Product already exists.");
@@ -45,6 +50,11 @@ class InventoryManagementSystem {
     }
 
     public void updateProductStock(String name, int quantity) {
+        if (quantity <= 0) {
+            System.out.println("Invalid quantity.");
+            return;
+        }
+
         for (Product product : products) {
             if (product.getName().equals(name)) {
                 product.updateStock(quantity);
@@ -109,11 +119,17 @@ public class Main {
         inventorySystem.addProduct(samsung);
 
         // Update stock
-        inventorySystem.updateProductStock("iPhone", -3);
+        inventorySystem.updateProductStock("iPhone", -3); // Invalid quantity
+
+        inventorySystem.updateProductStock("iPhone", 5); // Increase stock
+        inventorySystem.updateProductStock("Samsung Galaxy", -2); // Decrease stock
 
         // Check stock
         int iphoneStock = inventorySystem.getAvailableStock("iPhone");
         System.out.println("iPhone stock: " + iphoneStock);
+
+        int samsungStock = inventorySystem.getAvailableStock("Samsung Galaxy");
+        System.out.println("Samsung Galaxy stock: " + samsungStock);
 
         // Remove product
         inventorySystem.removeProduct("Samsung Galaxy");
