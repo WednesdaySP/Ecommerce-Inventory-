@@ -38,11 +38,10 @@ class InventoryManagementSystem {
             return;
         }
 
-        for (Product p : products) {
-            if (p.getName().equals(product.getName())) {
-                System.out.println("Product already exists.");
-                return;
-            }
+        // Use Copilot suggestion to improve code readability
+        if (products.stream().anyMatch(p -> p.getName().equals(product.getName()))) {
+            System.out.println("Product already exists.");
+            return;
         }
 
         products.add(product);
@@ -55,39 +54,44 @@ class InventoryManagementSystem {
             return;
         }
 
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                product.updateStock(quantity);
-                System.out.println("Stock updated successfully.");
-                return;
-            }
-        }
+        // Use Copilot suggestion to improve code readability
+        Product product = products.stream()
+                .filter(p -> p.getName().equals(name))
+                .findFirst()
+                .orElse(null);
 
-        System.out.println("Product does not exist.");
+        if (product != null) {
+            product.updateStock(quantity);
+            System.out.println("Stock updated successfully.");
+        } else {
+            System.out.println("Product does not exist.");
+        }
     }
 
     public void removeProduct(String name) {
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
-            if (product.getName().equals(name)) {
-                products.remove(i);
-                System.out.println("Product removed successfully.");
-                return;
-            }
-        }
+        // Use Copilot suggestion to improve code readability
+        boolean removed = products.removeIf(product -> product.getName().equals(name));
 
-        System.out.println("Product does not exist.");
+        if (removed) {
+            System.out.println("Product removed successfully.");
+        } else {
+            System.out.println("Product does not exist.");
+        }
     }
 
     public int getAvailableStock(String name) {
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                return product.getStock();
-            }
-        }
+        // Use Copilot suggestion to improve code readability
+        Product product = products.stream()
+                .filter(p -> p.getName().equals(name))
+                .findFirst()
+                .orElse(null);
 
-        System.out.println("Product does not exist.");
-        return -1;
+        if (product != null) {
+            return product.getStock();
+        } else {
+            System.out.println("Product does not exist.");
+            return -1;
+        }
     }
 }
 
