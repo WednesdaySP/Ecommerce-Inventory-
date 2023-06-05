@@ -40,7 +40,9 @@ To display the information displayProductInfo() is called.
       
       
 //Sample output according to the given data in our code 
-//OUTPUT:
+
+  
+  //OUTPUT:
       Product added successfully.
       Product added successfully.
       Invalid quantity.
